@@ -13,7 +13,7 @@ const mysqlApostrophe = require("mysql-apostrophe");
 // const history = require('connect-history-api-fallback');
 
 //IMPORT DES MODULES CREES
-// var dataBase = require('./database');
+var dataBase = require('./database');
 
 //ATTENTION SEMBLE POSER PROBLEME A NODE EN LOCAL
 // app.use(history()); 
@@ -36,12 +36,12 @@ app.use(bodyParser.urlencoded({ // LIRE LES BODY ENCODES EN URL
 app.use(mysqlApostrophe); //PERMET D'INSERER DES CHAMPS CONTENANT DES APOSTROPHES
 
 //4- RECUPERATION DES FICHIERS ROUTES DANS LE DOSSIER ROUTES
-// const lecture = require("./routes/read");
-// const ajouter = require("./routes/create");
+const lecture = require("./routes/read");
+const ajouter = require("./routes/create");
 
 // //5- UTILISATION DES ROUTES
-// app.use("/routesread", lecture);
-// app.use("/create", ajouter);
+app.use("/read", lecture);
+app.use("/create", ajouter);
 
 //Gestion de la mise en production
 // if (process.env.NODE_ENV === 'production') {

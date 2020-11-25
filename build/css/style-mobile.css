@@ -1,0 +1,82 @@
+body {
+  /* Le body occupe toute la hauteur de l'écran */
+  min-height: 100vh;
+  padding: 0px;
+}
+
+/*--------------------------------SMARTPHONE ET TABLETTE--------------------------------*/
+@media screen and (min-width: 320px) and (max-width: 1024px) {
+  header {
+    width: 100%;
+    background-color: #ededed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main {
+    width: 100%;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #chronometre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #conteneur-jeu {
+    background-color: #ddddfe;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .carte {
+    width: 21%;
+    height: 100px;
+    margin: 5px;
+    background-color: #aaaaaa;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    visibility: hidden;
+  }
+
+  #barre-essai {
+    width: 90%;
+    height: 15px;
+    background-color: blue;
+  }
+
+  #barre-essai-rouge {
+    width: 0%;
+    height: 15px;
+    background-color: red;
+    transition: width 2s;
+  }
+
+  /* #barre-essai:hover #barre-essai-rouge {
+  width: 20%;
+} */
+
+  #conteneur-boutons {
+    margin-top: 1%;
+  }
+
+  footer {
+    width: 100%;
+  }
+}

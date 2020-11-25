@@ -5,7 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/normalize.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/style-ordi.css">
+    <link rel="stylesheet" href="./css/style-mobile.css">
+
     <title>Jeu de Mémoire</title>
 </head>
 
@@ -15,16 +17,18 @@
     </header>
     <main>
         <div id="temps-jeu">
-            <div id="meilleur-temps">
-                
+            <div id="temps-enregistre">
+                <p>Meilleur temps :&nbsp</p>
+                <p id="meilleur-temps">00:00</p>
             </div>
             <div id="chronometre">
+
                 <p id="chrono-minutes">00</p>
                 <p>:</p>
                 <p id="chrono-secondes">00</p>
             </div>
         </div>
-    
+
         <!-- Les data set 'data-nomData" permettent de donner une infomration à un élément du DOM' -->
         <!-- ATTENTION un seul mot pour nommer la data et pas de Camel Case (ne semble pas le reconnaitre) -->
         <div id="conteneur-jeu">

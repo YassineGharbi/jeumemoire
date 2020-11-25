@@ -24,16 +24,19 @@ const app = express.Router();
 //3- MISE EN PLACE DES DIFFERENTS CREATE
 //3.1- TABLES SANS CLE(S) ETRANGERE(S)
 
-//TABLE STADE
+//TABLE SCORE
 app.post('/newtime', function (req, res) {
-    let ajoutStade = `INSERT INTO STADE (nom_stade, adresse_stade, cp_stade, ville_stade, pays_stade) VALUES ('${req.body.nom_stade}','${req.body.adresse_stade}','${req.body.cp_stade}','${req.body.ville_stade}', '${req.body.pays_stade}')`
-    db.query(ajoutStade, (err, rows, fieldsTwo) => {
+    let ajoutTemps = `INSERT INTO SCORE (temps) VALUES ('${req.body.temps}')`
+    db.query(ajoutTemps, (err, rows, fieldsTwo) => {
         if (err) {
             console.log(err.message);
             res.send(err.message);
         } else {
-            console.log(`Le stade "${req.body.nom_stade}" a bien été créée`);
-            res.send(`Le stade "${req.body.nom_stade}" a bien été créée`);
+            console.log(`Le temps "${req.body.temps}" a bien été ajouté`);
+            res.send(`Le temps "${req.body.temps}" a bien été ajouté`);
         }
     })
 })
+
+//EXPORT DE LA ROUTE
+module.exports = app

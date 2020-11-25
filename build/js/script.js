@@ -1,3 +1,31 @@
+// Affichage du meilleur score
+function getScore() {
+    fetch(`/read/bestscore`)
+        //RESPONSE
+        .then((response) => {
+            // console.log(responseEtatFetch.text());
+            return response.json();
+        })
+        //DATA
+        .then((data) => {
+            data.forEach(temps => {
+                let transfoString = temps.meilleur_temps.toString()
+                if(transfoString.length<4){
+                    document.getElementById("meilleur-temps").innerHTML = `0${transfoString.substring(0,1)}:${transfoString.substring(1, recupFruit.length)}`
+                }
+                else {
+                    document.getElementById("meilleur-temps").innerHTML = `${transfoString.substring(0,2)}:${transfoString.substring(2, recupFruit.length)}`
+                }
+            })
+        })
+        //RENVOYER ERREUR SI LE FICHIER DU FETCH N'EST PAS TROUVE
+        //
+        .catch((error) => {
+            console.log(error);
+        });
+}
+getScore()
+
 // Permettre au bouton commencer de lancer la fonction "commencerJeu"
 boutonLancement = document.getElementById("commencer-jeu")
 boutonArret = document.getElementById("arreter-jeu")
@@ -72,7 +100,6 @@ function commencerJeu() {
             premierClic = false
             caseUne = actionEvent.target
             imgUne = caseUne.dataset.image
-            console.log(imgUne);
             caseUne.style.background = `#ffffff`
             document.getElementById(imgUne).style.visibility = "visible"
             // Je retire pour le moment l'event Listener pour éviter de double cliquer sur la même case
@@ -87,7 +114,6 @@ function commencerJeu() {
             premierClic = true
             caseDeux = actionEvent.target
             imgDeux = caseDeux.dataset.image
-            console.log(imgDeux);
             caseDeux.style.background = `#ffffff`
             document.getElementById(imgDeux).style.visibility = "visible"
             valeurCaseDeux = caseDeux.dataset.fruit;
@@ -133,7 +159,6 @@ function commencerJeu() {
                         caseUne.addEventListener('click', apparitionFruit);
                         document.getElementById("barre-essai-rouge").style.width = `${widthRouge}%`
                     }
-                    console.log(echec);
                 }, 500);
 
             }
@@ -162,7 +187,6 @@ function dispositionFruit() {
         document.getElementById("conteneur-jeu").innerHTML += `<div class="carte" data-fruit="${recupFruit.substring(0, recupFruit.length-1)}" data-image="${recupFruit}" data-trouve="nok">
         <img src="img/${recupFruit}.png" id="${recupFruit}" alt="${recupFruit.substring(0, recupFruit.length-1)}"></div>`
     }
-    console.log("tabfruits : ", tabFruits);
     console.log("disposition :", disposition);
 }
 
@@ -173,7 +197,6 @@ function dispositionFruit() {
 function demarrerChrono() {
     // J'attribue une date à une constante "dateDepart"
     var dateDepart = new Date().getTime();
-    console.log(dateDepart);
     minuteur = setInterval(function () {
         // Je prend la date actuelle chaque seconde  
         var dateActuelle = new Date().getTime();
