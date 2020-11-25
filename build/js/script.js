@@ -1,0 +1,235 @@
+// Permettre au bouton commencer de lancer la fonction "commencerJeu"
+boutonLancement = document.getElementById("commencer-jeu")
+boutonArret = document.getElementById("arreter-jeu")
+document.getElementById("arreter-jeu").disabled = true
+
+boutonLancement.addEventListener('click', commencerJeu)
+boutonArret.addEventListener('click', arreterChrono)
+var minuteur
+
+// Récupération de tous les div contenant une image
+var divCarte = document.getElementsByClassName("carte");
+// Au chargment de la page les cases grises s'afficheront
+dispositionFruit()
+
+// ------------------------------------------ //
+// Fonction qui va permettre de lancer le jeu //
+// ------------------------------------------ //
+// Se lancera à chaque chaque fois que l'utilsateur clique sur commencer
+function commencerJeu() {
+    document.getElementById("commencer-jeu").disabled = true;
+    document.getElementById("arreter-jeu").disabled = false
+    demarrerChrono()
+    // Lancement de la fonction mettant en place les fruits
+    dispositionFruit()
+
+    // Appliquer un event listner à toutes les div qui ont la classe carte
+    for (var i = 0; i < divCarte.length; i++) {
+        divCarte[i].addEventListener('click', apparitionFruit);
+        // Permet de réinistialiser les cases en cours de jeu
+        divCarte[i].style.backgroundColor = "#aaaaaa"
+    }
+
+    // ---------------------------------------------- //
+    // Variables permettant de gérer les comparaisons //
+    // ---------------------------------------------- //
+    // Variables qui récupèrent les target des deux cliques (les div cliquées)
+    var caseUne;
+    var caseDeux;
+
+    // Variables qui récupèrent les dataset de chacune des cases cliquées
+    var valeurCaseUne;
+    var valeurCaseDeux;
+
+    // Variables qui récupèrent les valeurs des images
+    var imgUne;
+    var imgDeux;
+
+    // Variable qui permet de savoir si c'est le premier clic ou non
+    var premierClic = true;
+
+    // Variable permettant de compter le nombre de comparaison ratée
+    var echec = 0;
+    var widthRouge = 0
+    document.getElementById("barre-essai-rouge").style.width = `${widthRouge}%`
+    // Variable permettant de compter le nombre de comparaison réussie
+    var succes = 0
+
+    // Lancement de la fonction qui fait apparaitre les cases avec les fruits
+    // --------------------------------------------- //
+    // Fonction permettant de faire les comparaisons //
+    // --------------------------------------------- //
+    // Target va permettre de récupérer des informations de l'élément cliqué
+    // Le paramètre "actionEvent" fait référence à l'action qui lance la fonction (clic, etc.)
+    // En genéral on nomme ce paramètre "e"
+    function apparitionFruit(actionEvent) {
+        // ------------------------------ //
+        // ETAPE 1 : je fais mon 1er clic //
+        // ------------------------------ //
+        // console.log(actionEvent.target.style.backgroundColor = "blue");
+        if (premierClic == true) {
+            // "actionEvent.target" permet de savoir quel élement du DOM nous avons visé avec notre action (clic, etc.)
+            premierClic = false
+            caseUne = actionEvent.target
+            imgUne = caseUne.dataset.image
+            console.log(imgUne);
+            caseUne.style.background = `#ffffff`
+            document.getElementById(imgUne).style.visibility = "visible"
+            // Je retire pour le moment l'event Listener pour éviter de double cliquer sur la même case
+            caseUne.removeEventListener('click', apparitionFruit);
+            valeurCaseUne = caseUne.dataset.fruit;
+        }
+        // ------------------------------- //
+        // ETAPE 2 : je fais mon 2ème clic //
+        // ------------------------------- //
+        else {
+            // Je repasse "premierClic" à true pour préparer la prochaine comparaison
+            premierClic = true
+            caseDeux = actionEvent.target
+            imgDeux = caseDeux.dataset.image
+            console.log(imgDeux);
+            caseDeux.style.background = `#ffffff`
+            document.getElementById(imgDeux).style.visibility = "visible"
+            valeurCaseDeux = caseDeux.dataset.fruit;
+            // ----------------------------------------------- //
+            // ETAPE 3 : je compare les valeurs des deux cases //
+            // ----------------------------------------------- //
+            if (valeurCaseUne == valeurCaseDeux) {
+                setTimeout(function () {
+                    alert("Se sont les mêmes fruits");
+                    succes++;
+                    console.log(succes);
+                    // Arrête le jeu si toutes les cartes ont été trouvées
+                    if (succes == 2) {
+                        alert("Vous avez gagné !");
+                        enregistrerChrono()
+                        for (var i = 0; i < divCarte.length; i++) {
+                            divCarte[i].removeEventListener('click', apparitionFruit);
+                        }
+                    }
+                }, 500);
+                caseDeux.removeEventListener('click', apparitionFruit);
+                caseUne.dataset.trouve = "ok";
+                caseDeux.dataset.trouve = "ok";
+            } else {
+                setTimeout(function () {
+                    // Compteur qui s'incrémente à chaque erreur jusqu'à 5
+                    echec++
+                    if (echec == 5) {
+                        widthRouge = widthRouge + 20
+                        document.getElementById("barre-essai-rouge").style.width = `${widthRouge}%`
+                        alert("Vous avez perdu !")
+                        arreterChrono()
+                        for (var i = 0; i < divCarte.length; i++) {
+                            divCarte[i].removeEventListener('click', apparitionFruit);
+                        }
+                    } else {
+                        widthRouge = widthRouge + 20
+                        alert("Se ne sont pas les mêmes fruits");
+                        caseUne.style.background = "#aaaaaa";
+                        document.getElementById(imgUne).style.visibility = "hidden"
+                        caseDeux.style.background = "#aaaaaa";
+                        document.getElementById(imgDeux).style.visibility = "hidden"
+                        caseUne.addEventListener('click', apparitionFruit);
+                        document.getElementById("barre-essai-rouge").style.width = `${widthRouge}%`
+                    }
+                    console.log(echec);
+                }, 500);
+
+            }
+        }
+    }
+}
+
+// ---------------------------------------------- //
+//        Mise en place des fruits aléatoire      //
+// ---------------------------------------------- //
+function dispositionFruit() {
+    document.getElementById("conteneur-jeu").innerHTML = ""
+    // Je créé un tableau qui récupère le nom de mes images sans l'exension ".png"
+    var tabFruits = ["banane01", "cerise01", "citron-vert01", "citron01", "fraise01", "framboise01", "grenade01", "mangue01", "orange01", "pasteque01", "peche01", "poire01", "pomme-rouge01", "pomme-verte01", "banane02", "cerise02", "citron-vert02", "citron02", "fraise02", "framboise02", "grenade02", "mangue02", "orange02", "pasteque02", "peche02", "poire02", "pomme-rouge02", "pomme-verte02"];
+    // Tablbeau qui récupérera l'ordre des fruits mélangés
+    var disposition = [];
+    // Variable qui prend au hasard un fruit du tableau
+    recupFruit = tabFruits[Math.floor(Math.random() * tabFruits.length)];
+    while (tabFruits.length > 0) {
+        // Récupération d'une position au hasard du tableau
+        recupFruit = tabFruits[Math.floor(Math.random() * tabFruits.length)];
+        // Ajout du fruit dans le tableau "disposition"
+        disposition.push(recupFruit)
+        // Suppréssion du fruit dans le tableau "tabFruits"
+        tabFruits.splice(tabFruits.indexOf(recupFruit), 1);
+        document.getElementById("conteneur-jeu").innerHTML += `<div class="carte" data-fruit="${recupFruit.substring(0, recupFruit.length-1)}" data-image="${recupFruit}" data-trouve="nok">
+        <img src="img/${recupFruit}.png" id="${recupFruit}" alt="${recupFruit.substring(0, recupFruit.length-1)}"></div>`
+    }
+    console.log("tabfruits : ", tabFruits);
+    console.log("disposition :", disposition);
+}
+
+
+// --------------------------------------------- //
+// Fonction permettant de gérer le chronomètre   //
+// --------------------------------------------- //
+function demarrerChrono() {
+    // J'attribue une date à une constante "dateDepart"
+    var dateDepart = new Date().getTime();
+    console.log(dateDepart);
+    minuteur = setInterval(function () {
+        // Je prend la date actuelle chaque seconde  
+        var dateActuelle = new Date().getTime();
+        // Je calcule le temps écoulé entre la dateActuelle et la dateDepart
+        var tempsEcoule = dateActuelle - dateDepart
+        // Conversion en secondes et minutes de la variable de "tempsEcoule"
+        var minutes = Math.floor((tempsEcoule % (1000 * 60 * 60)) / (1000 * 60));
+        var secondes = Math.floor((tempsEcoule % (1000 * 60)) / 1000);
+        // Affichage des minutes et des secondes dans le DOM
+        if (minutes < 10) {
+            document.getElementById("chrono-minutes").innerHTML = `0${minutes}`;
+        } else {
+            document.getElementById("chrono-minutes").innerHTML = minutes;
+        }
+
+        if (secondes < 10) {
+            document.getElementById("chrono-secondes").innerHTML = `0${secondes}`;
+        } else {
+            document.getElementById("chrono-secondes").innerHTML = secondes;
+        }
+
+    }, 1000);
+
+}
+
+function arreterChrono() {
+    clearInterval(minuteur);
+    document.getElementById("commencer-jeu").disabled = false;
+    document.getElementById("arreter-jeu").disabled = true;
+}
+
+function enregistrerChrono() {
+    clearInterval(minuteur);
+    var minutes = document.getElementById("chrono-minutes").innerHTML
+    var secondes = document.getElementById("chrono-secondes").innerHTML
+    tempsEnregistre = minutes + secondes;
+    console.log(tempsEnregistre);
+    console.log(typeof tempsEnregistre);
+    tempsEnregistre = parseInt(tempsEnregistre)
+    console.log(tempsEnregistre);
+    console.log(typeof tempsEnregistre);
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        // Ce qui est à gauche = nom des champs en base de données
+        body: JSON.stringify({
+            temps: tempsEnregistre,
+        }),
+    };
+    fetch("/create/newtime", requestOptions)
+        .then((response) => response.text())
+        .then((data) => {
+            alert(data);
+        })
+        .catch((error) => console.log(error));
+}

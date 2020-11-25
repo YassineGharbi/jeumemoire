@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Jeu de Mémoire</title>
+</head>
+
+<body>
+    <header>
+        <h1>Jeu de mémoire</h1>
+    </header>
+    <main>
+        <div id="temps-jeu">
+            <div id="meilleur-temps">
+                
+            </div>
+            <div id="chronometre">
+                <p id="chrono-minutes">00</p>
+                <p>:</p>
+                <p id="chrono-secondes">00</p>
+            </div>
+        </div>
+    
+        <!-- Les data set 'data-nomData" permettent de donner une infomration à un élément du DOM' -->
+        <!-- ATTENTION un seul mot pour nommer la data et pas de Camel Case (ne semble pas le reconnaitre) -->
+        <div id="conteneur-jeu">
+        </div>
+        <div id="barre-essai">
+            <div id="barre-essai-rouge"></div>
+        </div>
+        <div id="conteneur-boutons">
+            <button id="commencer-jeu">Commencer</button>
+            <button id="arreter-jeu">Arrêter</button>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
