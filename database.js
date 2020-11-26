@@ -13,16 +13,6 @@ const dbConnexion = mysql.createConnection({
     strict: false //Permets d'entrer des valeurs NULL pour les champs date
 });
 
-//3- VERIFICATION DE LA CONNEXION A LA BASE DE DONNEES EN LOCAL
-// dbConnexion.connect((err) => {
-//     if (err) {
-//         console.log(err.message);
-
-//     } else {
-//         console.log("Connexion à la base réussie ")
-//     }
-// });
-
 // VERSION EN LIGNE HEROKU UNIQUEMENT AVEC createPool QUI STOCK DES CONNEXIONS
 // const dbConnexion = mysql.createPool({
 //     host: "eu-cdbr-west-03.cleardb.net",
@@ -44,5 +34,4 @@ dbConnexion.query('select 1 + 1', (err, rows) => {
 });
 
 //LISTE DES VARIABLES QUI VONT ETRE EXPORTEES
-//NOM DE L'EXPORT : VARIABLES EXPORTEES
 module.exports = dbConnexion

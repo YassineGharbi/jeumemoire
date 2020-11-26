@@ -25,6 +25,7 @@ body {
     align-items: center;
   }
 
+  /* Div regroupant le meilleur score et le chnronomètre */
   #temps-jeu {
     width: 100%;
     display: flex;
@@ -33,18 +34,21 @@ body {
     align-items: center;
   }
 
+  /* Div contenant le meilleur score */
   #temps-enregistre {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
+  /* Div contenant le chronomètre */
   #chronometre {
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
+  /* Div contenant les 28 cartes */
   #conteneur-jeu {
     background-color: #ddddfe;
     width: 90%;
@@ -55,6 +59,7 @@ body {
     flex-wrap: wrap;
   }
 
+  /* Carte à retourner */
   .carte {
     width: 13%;
     min-height: 15vh;
@@ -65,18 +70,21 @@ body {
     align-items: center;
   }
 
+  /* Image contenu dans la carte */
   img {
     max-width: 100%;
     height: auto;
     visibility: hidden;
   }
 
+  /* Barre bleu qui devient rouge à chaque erreur de l'utilisateur */
   #barre-essai {
     width: 90%;
     height: 15px;
     background-color: blue;
   }
 
+  /* Barre qui grandit à chaque essai raté de l'utilisateur */
   #barre-essai-rouge {
     width: 0%;
     height: 15px;
@@ -84,93 +92,15 @@ body {
     transition: width 2s;
   }
 
-  /* #barre-essai:hover #barre-essai-rouge {
-  width: 20%;
-} */
-
+  /* Div contenant les boutons */
   #conteneur-boutons {
     margin-top: 1%;
   }
 
   footer {
+    margin-top : 1%;
+    text-align: center;
     width: 100%;
     min-height: 2vh;
-  }
-}
-
-/*--------------------------------SMARTPHONE--------------------------------*/
-@media screen and (min-width: 320px) and (max-width: 1024px) {
-  header {
-    width: 100%;
-    background-color: #ededed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  main {
-    width: 100%;
-    background-color: #f9f9f9;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #chronometre {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #conteneur-jeu {
-    background-color: #ddddfe;
-    width: 90%;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .carte {
-    width: 21%;
-    height: 100px;
-    margin: 5px;
-    background-color: #aaaaaa;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  img {
-    max-width: 100%;
-    height: auto;
-    visibility: hidden;
-  }
-
-  #barre-essai {
-    width: 90%;
-    height: 15px;
-    background-color: blue;
-  }
-
-  #barre-essai-rouge {
-    width: 0%;
-    height: 15px;
-    background-color: red;
-    transition: width 2s;
-  }
-
-  /* #barre-essai:hover #barre-essai-rouge {
-  width: 20%;
-} */
-
-  #conteneur-boutons {
-    margin-top: 1%;
-  }
-
-  footer {
-    width: 100%;
   }
 }

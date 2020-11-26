@@ -1,5 +1,6 @@
 // Affichage du meilleur score
 function getScore() {
+    // Prépare mon Fetch qui va récupérer le meilleur temps dans la BDD avec la méthode GET
     fetch(`/read/bestscore`)
         //RESPONSE
         .then((response) => {
@@ -10,11 +11,14 @@ function getScore() {
         .then((data) => {
             data.forEach(temps => {
                 let transfoString = temps.meilleur_temps.toString()
-                if(transfoString.length<4){
+                // console.log(transfoString);
+                // Je cheat pour afficher le meilleur temps
+                if (transfoString.length >= 4) {
+                    document.getElementById("meilleur-temps").innerHTML = `0${transfoString.substring(0,2)}:${transfoString.substring(2, recupFruit.length)}`
+                } else if (transfoString.length == 3) {
                     document.getElementById("meilleur-temps").innerHTML = `0${transfoString.substring(0,1)}:${transfoString.substring(1, recupFruit.length)}`
-                }
-                else {
-                    document.getElementById("meilleur-temps").innerHTML = `${transfoString.substring(0,2)}:${transfoString.substring(2, recupFruit.length)}`
+                } else {
+                    document.getElementById("meilleur-temps").innerHTML = `00:${transfoString}`
                 }
             })
         })
@@ -45,6 +49,7 @@ dispositionFruit()
 // ------------------------------------------ //
 // Se lancera à chaque chaque fois que l'utilsateur clique sur commencer
 function commencerJeu() {
+    getScore()
     document.getElementById("commencer-jeu").disabled = true;
     document.getElementById("arreter-jeu").disabled = false
     demarrerChrono()
@@ -132,6 +137,9 @@ function commencerJeu() {
                         for (var i = 0; i < divCarte.length; i++) {
                             divCarte[i].removeEventListener('click', apparitionFruit);
                         }
+                        // Je réactive le bouton de démarrage
+                        document.getElementById("commencer-jeu").disabled = false;
+                        document.getElementById("arreter-jeu").disabled = true
                     }
                 }, 500);
                 caseDeux.removeEventListener('click', apparitionFruit);
@@ -149,6 +157,9 @@ function commencerJeu() {
                         for (var i = 0; i < divCarte.length; i++) {
                             divCarte[i].removeEventListener('click', apparitionFruit);
                         }
+                        // Je réactive le bouton de démarrage
+                        document.getElementById("commencer-jeu").disabled = false;
+                        document.getElementById("arreter-jeu").disabled = true
                     } else {
                         widthRouge = widthRouge + 20
                         alert("Se ne sont pas les mêmes fruits");
@@ -233,11 +244,8 @@ function enregistrerChrono() {
     var minutes = document.getElementById("chrono-minutes").innerHTML
     var secondes = document.getElementById("chrono-secondes").innerHTML
     tempsEnregistre = minutes + secondes;
-    console.log(tempsEnregistre);
-    console.log(typeof tempsEnregistre);
     tempsEnregistre = parseInt(tempsEnregistre)
-    console.log(tempsEnregistre);
-    console.log(typeof tempsEnregistre);
+    // Prépare mon Fetch qui va envoyer la valeur dans la BDD avec la méthode POST
     const requestOptions = {
         method: "POST",
         headers: {
