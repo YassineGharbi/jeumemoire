@@ -8,7 +8,7 @@ body {
 @media screen and (min-width: 1025px) {
   header {
     width: 100%;
-    min-height: 1vh;
+    min-height: 5vh;
     background-color: #ededed;
     display: flex;
     justify-content: center;
@@ -17,7 +17,7 @@ body {
 
   main {
     width: 100%;
-    min-height: 85vh;
+    min-height: 89vh;
     background-color: #f9f9f9;
     display: flex;
     flex-direction: column;
@@ -29,8 +29,8 @@ body {
   #temps-jeu {
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* flex-direction: column; */
+    justify-content: space-around;
     align-items: center;
   }
 
@@ -95,12 +95,5 @@ body {
   /* Div contenant les boutons */
   #conteneur-boutons {
     margin-top: 1%;
-  }
-
-  footer {
-    margin-top : 1%;
-    text-align: center;
-    width: 100%;
-    min-height: 2vh;
   }
 }

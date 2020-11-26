@@ -23,6 +23,22 @@ body {
     align-items: center;
   }
 
+  /* Div regroupant le meilleur score et le chnronomètre */
+  #temps-jeu {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Div contenant le meilleur score */
+  #temps-enregistre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   #chronometre {
     display: flex;
     justify-content: center;
@@ -74,9 +90,5 @@ body {
 
   #conteneur-boutons {
     margin-top: 1%;
-  }
-
-  footer {
-    width: 100%;
   }
 }
