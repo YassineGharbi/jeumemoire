@@ -4,21 +4,25 @@ function getScore() {
     fetch(`/read/bestscore`)
         //RESPONSE
         .then((response) => {
-            // console.log(responseEtatFetch.text());
             return response.json();
         })
         //DATA
         .then((data) => {
+            console.log(data);
             data.forEach(temps => {
-                let transfoString = temps.meilleur_temps.toString()
-                // console.log(transfoString);
-                // Je cheat pour afficher le meilleur temps
-                if (transfoString.length >= 4) {
-                    document.getElementById("meilleur-temps").innerHTML = `0${transfoString.substring(0,2)}:${transfoString.substring(2, recupFruit.length)}`
-                } else if (transfoString.length == 3) {
-                    document.getElementById("meilleur-temps").innerHTML = `0${transfoString.substring(0,1)}:${transfoString.substring(1, recupFruit.length)}`
+                // Permet de vérifier que la requête n'a pas envoyé un résultat nul
+                if (temps.meilleur_temps != null) {
+                    let transfoString = temps.meilleur_temps.toString()
+                    // Je cheat pour afficher le meilleur temps
+                    if (transfoString.length >= 4) {
+                        document.getElementById("meilleur-temps").innerHTML = `0${transfoString.substring(0,2)}:${transfoString.substring(2, recupFruit.length)}`
+                    } else if (transfoString.length == 3) {
+                        document.getElementById("meilleur-temps").innerHTML = `0${transfoString.substring(0,1)}:${transfoString.substring(1, recupFruit.length)}`
+                    } else {
+                        document.getElementById("meilleur-temps").innerHTML = `00:${transfoString}`
+                    }
                 } else {
-                    document.getElementById("meilleur-temps").innerHTML = `00:${transfoString}`
+                    document.getElementById("meilleur-temps").innerHTML = "pas de meilleur temps"
                 }
             })
         })
