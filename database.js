@@ -1,18 +1,6 @@
 //1- CREATION DES DEPENDANCES DE MODULES
 var mysql = require('mysql');
 
-//2- CONNECTION A LA BASE DE DONNEES EN LOCAL
-// const dbConnexion = mysql.createConnection({
-//     host: "localhost",
-//     database: "jeu_memoire",
-//     user: "root",
-//     password: "root",
-//     port: 8889,
-//     // socketPath est disponible sur la page d'acceuil du MAMP Local
-//     socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
-//     strict: false //Permets d'entrer des valeurs NULL pour les champs date
-// });
-
 // VERSION EN LIGNE HEROKU UNIQUEMENT AVEC createPool QUI STOCK DES CONNEXIONS
 const dbConnexion = mysql.createPool({
     host: "eu-cdbr-west-03.cleardb.net",
