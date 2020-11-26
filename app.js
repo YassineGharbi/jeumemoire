@@ -8,7 +8,6 @@ const router = express.Router();
 const cors = require("cors");
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
-const mysqlApostrophe = require("mysql-apostrophe");
 //Module permettant de faire des refresh en SPA
 // const history = require('connect-history-api-fallback');
 
@@ -32,14 +31,12 @@ app.use(bodyParser.urlencoded({ // LIRE LES BODY ENCODES EN URL
 //    extended: false
 // }))
 
-//3- MISE EN PLACE DE mysqlApostrophe
-app.use(mysqlApostrophe); //PERMET D'INSERER DES CHAMPS CONTENANT DES APOSTROPHES
 
-//4- RECUPERATION DES FICHIERS ROUTES DANS LE DOSSIER ROUTES
+//3- RECUPERATION DES FICHIERS ROUTES DANS LE DOSSIER ROUTES
 const lecture = require("./routes/read");
 const ajouter = require("./routes/create");
 
-// //5- UTILISATION DES ROUTES
+//4- UTILISATION DES ROUTES
 app.use("/read", lecture);
 app.use("/create", ajouter);
 
