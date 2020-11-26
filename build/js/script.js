@@ -131,7 +131,7 @@ function commencerJeu() {
                     succes++;
                     console.log(succes);
                     // Arrête le jeu si toutes les cartes ont été trouvées
-                    if (succes == 2) {
+                    if (succes == 14) {
                         alert("Vous avez gagné !");
                         enregistrerChrono()
                         for (var i = 0; i < divCarte.length; i++) {
@@ -143,8 +143,6 @@ function commencerJeu() {
                     }
                 }, 500);
                 caseDeux.removeEventListener('click', apparitionFruit);
-                caseUne.dataset.trouve = "ok";
-                caseDeux.dataset.trouve = "ok";
             } else {
                 setTimeout(function () {
                     // Compteur qui s'incrémente à chaque erreur jusqu'à 5
@@ -195,7 +193,7 @@ function dispositionFruit() {
         disposition.push(recupFruit)
         // Suppréssion du fruit dans le tableau "tabFruits"
         tabFruits.splice(tabFruits.indexOf(recupFruit), 1);
-        document.getElementById("conteneur-jeu").innerHTML += `<div class="carte" data-fruit="${recupFruit.substring(0, recupFruit.length-1)}" data-image="${recupFruit}" data-trouve="nok">
+        document.getElementById("conteneur-jeu").innerHTML += `<div class="carte" data-fruit="${recupFruit.substring(0, recupFruit.length-1)}" data-image="${recupFruit}">
         <img src="img/${recupFruit}.png" id="${recupFruit}" alt="${recupFruit.substring(0, recupFruit.length-1)}"></div>`
     }
     console.log("disposition :", disposition);
@@ -260,7 +258,7 @@ function enregistrerChrono() {
     fetch("/create/newtime", requestOptions)
         .then((response) => response.text())
         .then((data) => {
-            alert(data);
+            // alert(data);
         })
         .catch((error) => console.log(error));
 }
