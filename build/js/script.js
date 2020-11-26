@@ -8,7 +8,7 @@ function getScore() {
         })
         //DATA
         .then((data) => {
-            console.log(data);
+            // console.log(data);
             data.forEach(temps => {
                 // Permet de vérifier que la requête n'a pas envoyé un résultat nul
                 if (temps.meilleur_temps != null) {
@@ -200,7 +200,7 @@ function dispositionFruit() {
         document.getElementById("conteneur-jeu").innerHTML += `<div class="carte" data-fruit="${recupFruit.substring(0, recupFruit.length-1)}" data-image="${recupFruit}">
         <img src="img/${recupFruit}.png" id="${recupFruit}" alt="${recupFruit.substring(0, recupFruit.length-1)}"></div>`
     }
-    console.log("disposition :", disposition);
+    // console.log("disposition :", disposition);
 }
 
 
